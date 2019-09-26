@@ -26,6 +26,9 @@ import org.activiti.engine.impl.test.PluggableActivitiTestCase;
  */
 public class IdentityTest extends PluggableActivitiTestCase {
 
+    /**
+     * 添加用户
+     */
   public void testAuthentication() {
     User user = identityService.newUser("johndoe");
     user.setPassword("xxx");
@@ -110,16 +113,28 @@ public class IdentityTest extends PluggableActivitiTestCase {
     identityService.deleteUser("johndoe");
   }
 
+    /**
+     * 添加角色
+     */
   public void testGroup() {
-    Group group = identityService.newGroup("sales");
+    Group group = identityService.newGroup("sales","credit");
     group.setName("Sales division");
+
     identityService.saveGroup(group);
 
-    group = identityService.createGroupQuery().groupId("sales").singleResult();
+    Group group1 = identityService.newGroup("sales","jpt");
+    identityService.saveGroup(group1);
+
+    group = identityService.createGroupQuery().groupId("sales").groupSystemId("credit").singleResult();
+    group1 = identityService.createGroupQuery().groupId("sales").groupSystemId("jpt").singleResult();
     assertEquals("sales", group.getId());
     assertEquals("Sales division", group.getName());
 
-    identityService.deleteGroup("sales");
+//    identityService.deleteGroup("sales");
+
+      identityService.deleteGroupByGroupIdAndSystemId("sales","credit");
+      identityService.deleteGroupByGroupIdAndSystemId("sales","jpt");
+
   }
 
   public void testMembership() {

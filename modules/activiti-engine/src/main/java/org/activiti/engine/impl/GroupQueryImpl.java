@@ -46,6 +46,7 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     super(commandExecutor);
   }
 
+  @Override
   public GroupQuery groupId(String id) {
     if (id == null) {
       throw new ActivitiIllegalArgumentException("Provided id is null");
@@ -54,6 +55,7 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     return this;
   }
 
+  @Override
   public GroupQuery groupName(String name) {
     if (name == null) {
       throw new ActivitiIllegalArgumentException("Provided name is null");
@@ -62,6 +64,7 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     return this;
   }
 
+  @Override
   public GroupQuery groupNameLike(String nameLike) {
     if (nameLike == null) {
       throw new ActivitiIllegalArgumentException("Provided nameLike is null");
@@ -70,6 +73,7 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     return this;
   }
 
+  @Override
   public GroupQuery groupType(String type) {
     if (type == null) {
       throw new ActivitiIllegalArgumentException("Provided type is null");
@@ -78,6 +82,7 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     return this;
   }
 
+  @Override
   public GroupQuery groupMember(String userId) {
     if (userId == null) {
       throw new ActivitiIllegalArgumentException("Provided userId is null");
@@ -86,14 +91,16 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     return this;
   }
 
-  public GroupQuery groupSystemId(String systemId){
-      if (systemId == null){
-          throw new ActivitiIllegalArgumentException("Provided systemId is null");
-      }
-      this.systemId = systemId;
-      return this;
-  }
+    @Override
+    public GroupQuery groupSystemId(String systemId) {
+        if (systemId == null){
+            throw new ActivitiIllegalArgumentException("Provided systemId is null");
+        }
+        this.systemId = systemId;
+        return this;
+    }
 
+  @Override
   public GroupQuery potentialStarter(String procDefId) {
     if (procDefId == null) {
       throw new ActivitiIllegalArgumentException("Provided processDefinitionId is null or empty");
@@ -105,25 +112,28 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
 
   // sorting ////////////////////////////////////////////////////////
 
+  @Override
   public GroupQuery orderByGroupId() {
     return orderBy(GroupQueryProperty.GROUP_ID);
   }
 
+  @Override
   public GroupQuery orderByGroupName() {
     return orderBy(GroupQueryProperty.NAME);
   }
 
+  @Override
   public GroupQuery orderByGroupType() {
     return orderBy(GroupQueryProperty.TYPE);
   }
 
   // results ////////////////////////////////////////////////////////
-
+  @Override
   public long executeCount(CommandContext commandContext) {
     checkQueryOk();
     return commandContext.getGroupEntityManager().findGroupCountByQueryCriteria(this);
   }
-
+  @Override
   public List<Group> executeList(CommandContext commandContext, Page page) {
     checkQueryOk();
     return commandContext.getGroupEntityManager().findGroupByQueryCriteria(this, page);

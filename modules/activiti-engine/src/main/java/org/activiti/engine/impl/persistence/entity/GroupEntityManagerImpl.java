@@ -44,7 +44,8 @@ public class GroupEntityManagerImpl extends AbstractEntityManager<GroupEntity> i
   protected DataManager<GroupEntity> getDataManager() {
     return groupDataManager;
   }
-  
+
+  @Override
   public Group createNewGroup(String groupId) {
     GroupEntity groupEntity = groupDataManager.create();
     groupEntity.setId(groupId);
@@ -52,7 +53,16 @@ public class GroupEntityManagerImpl extends AbstractEntityManager<GroupEntity> i
     return groupEntity;
   }
 
-  @Override
+    @Override
+    public Group createNewGroup(String groupId, String systemId) {
+        GroupEntity groupEntity = groupDataManager.create();
+        groupEntity.setId(groupId);
+        groupEntity.setSystemId(systemId);
+        groupEntity.setRevision(0); // Needed as groups can be transient and not save when they are returned
+        return groupEntity;
+    }
+
+    @Override
   public void delete(String groupId) {
     GroupEntity group = groupDataManager.findById(groupId); 
 

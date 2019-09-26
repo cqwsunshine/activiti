@@ -28,4 +28,8 @@ public interface GroupEntity extends Group, Entity, HasRevision {
 
   void setType(String type);
 
+  String getSystemId();
+
+  void setSystemId(String systemId);
+
 }

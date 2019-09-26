@@ -28,6 +28,7 @@ public class CreateGroupCmd implements Command<Group>, Serializable {
   private static final long serialVersionUID = 1L;
 
   protected String groupId;
+  protected String systemId;
 
   public CreateGroupCmd(String groupId) {
     if (groupId == null) {
@@ -36,8 +37,24 @@ public class CreateGroupCmd implements Command<Group>, Serializable {
     this.groupId = groupId;
   }
 
+  public CreateGroupCmd(String groupId, String systemId){
+      if (groupId == null) {
+          throw new ActivitiIllegalArgumentException("groupId is null");
+      }
+      if (systemId == null){
+          throw new ActivitiIllegalArgumentException("groupId is null");
+      }
+      this.groupId = groupId;
+      this.systemId = systemId;
+  }
+
+  @Override
   public Group execute(CommandContext commandContext) {
-    return commandContext.getGroupEntityManager().createNewGroup(groupId);
+      if (groupId != null && systemId != null){
+          return commandContext.getGroupEntityManager().createNewGroup(groupId,systemId);
+      }else {
+          return commandContext.getGroupEntityManager().createNewGroup(groupId);
+      }
   }
 
 }

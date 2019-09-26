@@ -34,4 +34,8 @@ public interface Group extends Serializable {
   String getType();
 
   void setType(String string);
+
+  String getSystemId();
+
+  void setSystemId(String systemId);
 }

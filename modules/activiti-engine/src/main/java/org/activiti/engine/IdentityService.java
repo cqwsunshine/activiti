@@ -71,6 +71,8 @@ public interface IdentityService {
    */
   Group newGroup(String groupId);
 
+    Group newGroup(String groupId,String systemId);
+
   /**
    * Creates a {@link GroupQuery} that allows to programmatically query the groups.
    */
@@ -98,6 +100,13 @@ public interface IdentityService {
    *          id of the group that should be deleted, cannot be null.
    */
   void deleteGroup(String groupId);
+
+    /**
+     * 根据角色id和系统key删除角色
+     * @param groupId
+     * @param systemId
+     */
+  void deleteGroupByGroupIdAndSystemId(String groupId, String systemId);
 
   /**
    * @param userId

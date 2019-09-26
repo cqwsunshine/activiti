@@ -25,17 +25,26 @@ public class DeleteGroupCmd implements Command<Void>, Serializable {
 
   private static final long serialVersionUID = 1L;
   String groupId;
+  String systemId;
 
   public DeleteGroupCmd(String groupId) {
     this.groupId = groupId;
   }
 
+    public DeleteGroupCmd(String groupId, String systemId) {
+        this.groupId = groupId;
+        this.systemId = systemId;
+    }
+
+  @Override
   public Void execute(CommandContext commandContext) {
     if (groupId == null) {
       throw new ActivitiIllegalArgumentException("groupId is null");
     }
     commandContext.getGroupEntityManager().delete(groupId);
-
+    if (systemId != null){
+        commandContext.getGroupEntityManager().delete(systemId);
+    }
     return null;
   }
 

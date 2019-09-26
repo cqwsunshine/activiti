@@ -180,14 +180,25 @@ FAQ
     
     * 数据库脚本位置: 
     resources/org.activiti.db.create,因为只用mysql，所以只修改mysql对应脚本；activiti.mysql.create.identity.sql
-    用户角色表：act_id_group
+    用户角色表：act_id_group --> ID_角色id,主键，唯一
     用户表：act_id_user
     用户角色关联表：act_id_membership
     
     * 修改实体类
+    org.activiti.engine.identity.Group
+    org.activiti.engine.impl.persistence.entity.GroupEntity
     org.activiti.engine.impl.persistence.entity.GroupEntityImpl
+    org.activiti.engine.impl.GroupQueryImpl
+    org.activiti.engine.identity.GroupQuery
+    IdentityService
+    org.activiti.engine.impl.cmd.DeleteGroupCmd
+    org.activiti.engine.impl.IdentityServiceImpl
+    org.activiti.engine.impl.cmd.CreateGroupCmd
+    org.activiti.engine.impl.persistence.entity.GroupEntityManagerImpl
     
     * 修改mapper.xml文件
     位置：resources/org.activiti.db.mapping.entity
     Group.xml
+    
+    
     

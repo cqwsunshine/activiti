@@ -173,3 +173,21 @@ FAQ
         * with [Open Hub](https://www.openhub.net/p/activiti/contributors) which also has statistics
 
         * in [the GitHub web interface](https://github.com/activiti).
+
+区分不同系统用户
+----------------------------
+* 修改activiti-engine工程（数据库脚本、mapper文件、实体类）
+    
+    * 数据库脚本位置: 
+    resources/org.activiti.db.create,因为只用mysql，所以只修改mysql对应脚本；activiti.mysql.create.identity.sql
+    用户角色表：act_id_group
+    用户表：act_id_user
+    用户角色关联表：act_id_membership
+    
+    * 修改实体类
+    org.activiti.engine.impl.persistence.entity.GroupEntityImpl
+    
+    * 修改mapper.xml文件
+    位置：resources/org.activiti.db.mapping.entity
+    Group.xml
+    

@@ -200,5 +200,8 @@ FAQ
     位置：resources/org.activiti.db.mapping.entity
     Group.xml
     
+    * act_id_group添加角色字段ROLEID_，原来ID_改为主键ID，不存角色ID
+    因此添加角色组时，需要使用三个参数的，组id,系统id,角色id
+    
     
     

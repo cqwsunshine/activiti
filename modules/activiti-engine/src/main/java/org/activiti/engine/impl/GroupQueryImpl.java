@@ -34,6 +34,7 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
   protected String userId;
   protected String procDefId;
   protected String systemId;
+  protected String roleId;
 
   public GroupQueryImpl() {
   }
@@ -100,7 +101,16 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
         return this;
     }
 
-  @Override
+    @Override
+    public GroupQuery groupRoleId(String roleId) {
+        if (roleId == null){
+            throw new ActivitiIllegalArgumentException("Provided roleId is null");
+        }
+        this.roleId = roleId;
+        return this;
+    }
+
+    @Override
   public GroupQuery potentialStarter(String procDefId) {
     if (procDefId == null) {
       throw new ActivitiIllegalArgumentException("Provided processDefinitionId is null or empty");
@@ -127,7 +137,12 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     return orderBy(GroupQueryProperty.TYPE);
   }
 
-  // results ////////////////////////////////////////////////////////
+    @Override
+    public GroupQuery orderByRoleId() {
+        return orderBy(GroupQueryProperty.ROLE_ID);
+    }
+
+    // results ////////////////////////////////////////////////////////
   @Override
   public long executeCount(CommandContext commandContext) {
     checkQueryOk();
@@ -169,5 +184,7 @@ public class GroupQueryImpl extends AbstractQuery<GroupQuery, Group> implements 
     public String getSystemId() {
         return systemId;
     }
+
+    public String getRoleId(){return roleId;}
 
 }

@@ -73,6 +73,8 @@ public interface IdentityService {
 
     Group newGroup(String groupId,String systemId);
 
+    Group newGroup(String groupId, String systemId, String roleId);
+
   /**
    * Creates a {@link GroupQuery} that allows to programmatically query the groups.
    */

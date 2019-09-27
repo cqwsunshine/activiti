@@ -1,5 +1,6 @@
 create table ACT_ID_GROUP (
-    ID_ varchar(64) COMMENT '角色ID', -- 角色ID
+    ID_ varchar(64) COMMENT '组ID', -- 添加数据时需要自己维护
+    ROLEID_ varchar(255) COMMENT '角色ID',
     REV_ integer,
     NAME_ varchar(255),
     TYPE_ varchar(255),
@@ -9,7 +10,7 @@ create table ACT_ID_GROUP (
 
 create table ACT_ID_MEMBERSHIP (
     USER_ID_ varchar(64) COMMENT '用户ID',-- 用户ID
-    GROUP_ID_ varchar(64) COMMENT '角色ID', -- 角色ID
+    GROUP_ID_ varchar(64) COMMENT '组ID', -- 组ID
     SYSTEMID_ varchar(255) COMMENT '系统标识', -- 系统标识
     primary key (USER_ID_, GROUP_ID_)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
@@ -40,7 +41,7 @@ create table ACT_ID_INFO (
 
 alter table ACT_ID_MEMBERSHIP 
     add constraint ACT_FK_MEMB_GROUP 
-    foreign key (GROUP_ID_) -- 角色ID
+    foreign key (GROUP_ID_) -- 组ID
     references ACT_ID_GROUP (ID_);
 
 alter table ACT_ID_MEMBERSHIP 

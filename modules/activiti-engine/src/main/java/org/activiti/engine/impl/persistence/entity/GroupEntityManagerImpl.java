@@ -63,6 +63,16 @@ public class GroupEntityManagerImpl extends AbstractEntityManager<GroupEntity> i
     }
 
     @Override
+    public Group createNewGroup(String groupId, String systemId, String roleId) {
+        GroupEntity groupEntity = groupDataManager.create();
+        groupEntity.setId(groupId);
+        groupEntity.setSystemId(systemId);
+        groupEntity.setRoleId(roleId);
+        groupEntity.setRevision(0); // Needed as groups can be transient and not save when they are returned
+        return groupEntity;
+    }
+
+    @Override
   public void delete(String groupId) {
     GroupEntity group = groupDataManager.findById(groupId); 
 

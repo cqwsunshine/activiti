@@ -30,6 +30,8 @@ public interface GroupEntityManager extends EntityManager<GroupEntity> {
 
   Group createNewGroup(String groupId,String systemId);
 
+  Group createNewGroup(String groupId, String systemId, String roleId);
+
   GroupQuery createNewGroupQuery();
 
   List<Group> findGroupByQueryCriteria(GroupQueryImpl query, Page page);

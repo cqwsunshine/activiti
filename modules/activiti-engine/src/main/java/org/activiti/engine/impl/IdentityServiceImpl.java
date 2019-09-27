@@ -58,6 +58,11 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
     }
 
     @Override
+    public Group newGroup(String groupId, String systemId, String roleId) {
+        return commandExecutor.execute(new CreateGroupCmd(groupId,systemId,roleId));
+    }
+
+    @Override
   public User newUser(String userId) {
     return commandExecutor.execute(new CreateUserCmd(userId));
   }

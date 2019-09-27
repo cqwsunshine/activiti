@@ -41,6 +41,8 @@ public interface GroupQuery extends Query<GroupQuery, Group> {
 
   GroupQuery groupSystemId(String systemId);
 
+  GroupQuery groupRoleId(String roleId);
+
   /**
    * Only select {@link Group}S that are potential starter for the given process definition.
    */
@@ -62,5 +64,7 @@ public interface GroupQuery extends Query<GroupQuery, Group> {
    * Order by group type (needs to be followed by {@link #asc()} or {@link #desc()}).
    */
   GroupQuery orderByGroupType();
+
+  GroupQuery orderByRoleId();
 
 }

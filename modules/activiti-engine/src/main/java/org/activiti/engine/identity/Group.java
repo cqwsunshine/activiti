@@ -38,4 +38,8 @@ public interface Group extends Serializable {
   String getSystemId();
 
   void setSystemId(String systemId);
+
+  String getRoleId();
+
+  void setRoleId(String roleId);
 }

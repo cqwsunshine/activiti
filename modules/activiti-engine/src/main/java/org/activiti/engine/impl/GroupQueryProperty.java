@@ -33,6 +33,7 @@ public class GroupQueryProperty implements QueryProperty {
   public static final GroupQueryProperty GROUP_ID = new GroupQueryProperty("RES.ID_");
   public static final GroupQueryProperty NAME = new GroupQueryProperty("RES.NAME_");
   public static final GroupQueryProperty TYPE = new GroupQueryProperty("RES.TYPE_");
+  public static final GroupQueryProperty ROLE_ID = new GroupQueryProperty("RES.ROLEID_");
 
   private String name;
 

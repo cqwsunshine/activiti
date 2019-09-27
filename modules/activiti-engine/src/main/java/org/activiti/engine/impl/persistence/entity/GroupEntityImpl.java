@@ -26,6 +26,7 @@ public class GroupEntityImpl extends AbstractEntity implements GroupEntity, Seri
   protected String name;
   protected String type;
   protected String systemId;
+  protected String roleId;
 
   public GroupEntityImpl() {
   }
@@ -36,6 +37,7 @@ public class GroupEntityImpl extends AbstractEntity implements GroupEntity, Seri
     persistentState.put("name", name);
     persistentState.put("type", type);
     persistentState.put("systemId",systemId);
+    persistentState.put("roleId",roleId);
     return persistentState;
   }
 
@@ -67,5 +69,15 @@ public class GroupEntityImpl extends AbstractEntity implements GroupEntity, Seri
     @Override
     public void setSystemId(String systemId) {
         this.systemId = systemId;
+    }
+
+    @Override
+    public String getRoleId() {
+        return roleId;
+    }
+
+    @Override
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 }

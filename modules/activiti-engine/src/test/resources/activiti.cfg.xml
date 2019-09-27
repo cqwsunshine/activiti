@@ -16,8 +16,8 @@
     <property name="jdbcPassword" value="" />
     -->
     <!-- Database configurations -->
-    <!--<property name="databaseSchemaUpdate" value="true" />-->
-    <property name="databaseSchemaUpdate" value="drop-create" />
+    <property name="databaseSchemaUpdate" value="true" />
+    <!--<property name="databaseSchemaUpdate" value="drop-create" />-->
 
 	<!-- Test logger -->
 	<!-- <property name="configurators">

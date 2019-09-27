@@ -108,11 +108,6 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
   }
 
     @Override
-    public void deleteGroupByGroupIdAndSystemId(String groupId, String systemId) {
-        commandExecutor.execute(new DeleteGroupCmd(groupId,systemId));
-    }
-
-    @Override
     public void deleteMembership(String userId, String groupId) {
     commandExecutor.execute(new DeleteMembershipCmd(userId, groupId));
   }

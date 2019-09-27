@@ -103,13 +103,6 @@ public interface IdentityService {
    */
   void deleteGroup(String groupId);
 
-    /**
-     * 根据角色id和系统key删除角色
-     * @param groupId
-     * @param systemId
-     */
-  void deleteGroupByGroupIdAndSystemId(String groupId, String systemId);
-
   /**
    * @param userId
    *          the userId, cannot be null.

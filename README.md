@@ -203,5 +203,18 @@ FAQ
     * act_id_group添加角色字段ROLEID_，原来ID_改为主键ID，不存角色ID
     因此添加角色组时，需要使用三个参数的，组id,系统id,角色id
     
+* 角色组act_id_group
     
+    * 添加角色组
+    identityService.newGroup(String groupId, String systemId, String roleId)
+    groupId 自己维护的主键ID
+    systemId 系统标识，区分不同系统
+    roleId 角色ID 
+    systemId和roleId应该是唯一组合
+    
+    * 查询角色组
+    group = identityService.createGroupQuery().groupSystemId(systemId).groupRoleId(roleId).singleResult();   
+    
+    * 删除角色组(根据角色组id)
+    identityService.deleteGroup(groupId);
     

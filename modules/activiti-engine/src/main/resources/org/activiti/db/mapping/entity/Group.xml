@@ -139,6 +139,9 @@
       <if test="roleId != null">
           and RES.ROLEID_ = #{roleId}
       </if>
+      <if test="systemId != null">
+          and RES.SYSTEMID_ = #{systemId}
+      </if>
       <if test="procDefId != null">
         and exists (select ID_ from ${prefix}ACT_RU_IDENTITYLINK where PROC_DEF_ID_ = #{procDefId} and GROUP_ID_=RES.ID_ )
       </if>

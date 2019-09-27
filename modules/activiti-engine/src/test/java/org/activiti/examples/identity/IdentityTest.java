@@ -12,14 +12,14 @@
  */
 package org.activiti.examples.identity;
 
+import org.activiti.engine.identity.Group;
+import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.activiti.engine.identity.Group;
-import org.activiti.engine.identity.User;
-import org.activiti.engine.impl.test.PluggableActivitiTestCase;
 
 /**
  * @author Tom Baeyens
@@ -125,15 +125,16 @@ public class IdentityTest extends PluggableActivitiTestCase {
     Group group1 = identityService.newGroup("sales2","jpt","1");
     identityService.saveGroup(group1);
 
-    group = identityService.createGroupQuery().groupId("sales1").groupSystemId("credit").singleResult();
-    group1 = identityService.createGroupQuery().groupId("sales2").groupSystemId("jpt").singleResult();
-    //assertEquals("sales", group.getId());
-    //assertEquals("Sales division", group.getName());
+    //group = identityService.createGroupQuery().groupId("sales1").singleResult();
 
-//    identityService.deleteGroup("sales");
+      group = identityService.createGroupQuery().groupSystemId("credit").groupRoleId("1").singleResult();
+      group1 = identityService.createGroupQuery().groupSystemId("jpt").groupRoleId("1").singleResult();
 
-      identityService.deleteGroupByGroupIdAndSystemId("sales1","credit");
-      identityService.deleteGroupByGroupIdAndSystemId("sales2","jpt");
+    assertEquals("sales1", group.getId());
+    assertEquals("Sales division", group.getName());
+
+    identityService.deleteGroup("sales1");
+    identityService.deleteGroup("sales2");
 
   }
 

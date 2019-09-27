@@ -30,6 +30,8 @@ public class IdentityTest extends PluggableActivitiTestCase {
      * 添加用户
      */
   public void testAuthentication() {
+    /*
+     // 原始
     User user = identityService.newUser("johndoe");
     user.setPassword("xxx");
     identityService.saveUser(user);
@@ -37,7 +39,28 @@ public class IdentityTest extends PluggableActivitiTestCase {
     assertTrue(identityService.checkPassword("johndoe", "xxx"));
     assertFalse(identityService.checkPassword("johndoe", "invalid pwd"));
 
-    identityService.deleteUser("johndoe");
+    identityService.deleteUser("johndoe");*/
+
+      User user = identityService.newUser("12","22","credit");
+      user.setPassword("xxx");
+      identityService.saveUser(user);
+
+      User user2 = identityService.newUser("10","22","jpt");
+      identityService.saveUser(user2);
+
+      user = identityService.createUserQuery().userSystemId("credit").userUserId("22").singleResult();
+      user2 = identityService.createUserQuery().userSystemId("jpt").userUserId("22").singleResult();
+
+      user.setSystemId("credit1");
+      user.setUserId("22-1");
+      identityService.saveUser(user);
+
+      User user3 = identityService.createUserQuery().userId(user.getId()).singleResult();
+      //assertTrue(identityService.checkPassword("johndoe", "xxx"));
+      //assertFalse(identityService.checkPassword("johndoe", "invalid pwd"));
+
+      identityService.deleteUser("12");
+      identityService.deleteUser("10");
   }
 
   public void testFindGroupsByUserAndType() {

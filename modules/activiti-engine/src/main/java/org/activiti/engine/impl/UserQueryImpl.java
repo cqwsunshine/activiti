@@ -37,6 +37,8 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
   protected String emailLike;
   protected String groupId;
   protected String procDefId;
+  protected String userId;
+  protected String systemId;
 
   public UserQueryImpl() {
   }
@@ -49,6 +51,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     super(commandExecutor);
   }
 
+  @Override
   public UserQuery userId(String id) {
     if (id == null) {
       throw new ActivitiIllegalArgumentException("Provided id is null");
@@ -57,6 +60,25 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
+  public UserQuery userUserId(String userId){
+      if (userId == null){
+          throw new ActivitiIllegalArgumentException("Provided userId is null");
+      }
+      this.userId = userId;
+      return this;
+  }
+
+  @Override
+    public UserQuery userSystemId(String systemId){
+        if (systemId == null){
+            throw new ActivitiIllegalArgumentException("Provided systemId is null");
+        }
+        this.systemId = systemId;
+        return this;
+    }
+
+    @Override
   public UserQuery userFirstName(String firstName) {
     if (firstName == null) {
       throw new ActivitiIllegalArgumentException("Provided firstName is null");
@@ -65,6 +87,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery userFirstNameLike(String firstNameLike) {
     if (firstNameLike == null) {
       throw new ActivitiIllegalArgumentException("Provided firstNameLike is null");
@@ -73,6 +96,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery userLastName(String lastName) {
     if (lastName == null) {
       throw new ActivitiIllegalArgumentException("Provided lastName is null");
@@ -81,6 +105,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery userLastNameLike(String lastNameLike) {
     if (lastNameLike == null) {
       throw new ActivitiIllegalArgumentException("Provided lastNameLike is null");
@@ -89,6 +114,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery userFullNameLike(String fullNameLike) {
     if (fullNameLike == null) {
       throw new ActivitiIllegalArgumentException("Provided full name is null");
@@ -97,6 +123,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery userEmail(String email) {
     if (email == null) {
       throw new ActivitiIllegalArgumentException("Provided email is null");
@@ -105,6 +132,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery userEmailLike(String emailLike) {
     if (emailLike == null) {
       throw new ActivitiIllegalArgumentException("Provided emailLike is null");
@@ -113,6 +141,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery memberOfGroup(String groupId) {
     if (groupId == null) {
       throw new ActivitiIllegalArgumentException("Provided groupIds is null or empty");
@@ -121,6 +150,7 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
     return this;
   }
 
+  @Override
   public UserQuery potentialStarter(String procDefId) {
     if (procDefId == null) {
       throw new ActivitiIllegalArgumentException("Provided processDefinitionId is null or empty");
@@ -131,30 +161,42 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
   }
 
   // sorting //////////////////////////////////////////////////////////
+    @Override
+  public UserQuery orderById(){
+      return orderBy(UserQueryProperty.ID);
+  }
 
+  @Override
   public UserQuery orderByUserId() {
     return orderBy(UserQueryProperty.USER_ID);
   }
 
+  @Override
   public UserQuery orderByUserEmail() {
     return orderBy(UserQueryProperty.EMAIL);
   }
 
+  @Override
   public UserQuery orderByUserFirstName() {
     return orderBy(UserQueryProperty.FIRST_NAME);
   }
 
+  @Override
   public UserQuery orderByUserLastName() {
     return orderBy(UserQueryProperty.LAST_NAME);
   }
 
+  public UserQuery orderByUserSystemId(){return orderBy(UserQueryProperty.SYSTEM_ID);}
+
   // results //////////////////////////////////////////////////////////
 
+    @Override
   public long executeCount(CommandContext commandContext) {
     checkQueryOk();
     return commandContext.getUserEntityManager().findUserCountByQueryCriteria(this);
   }
 
+  @Override
   public List<User> executeList(CommandContext commandContext, Page page) {
     checkQueryOk();
     return commandContext.getUserEntityManager().findUserByQueryCriteria(this, page);
@@ -201,5 +243,8 @@ public class UserQueryImpl extends AbstractQuery<UserQuery, User> implements Use
   public String getProcDefId() {
     return procDefId;
   }
-  
+
+  public String getUserId(){return userId;}
+
+  public String getSystemId(){return systemId;}
 }

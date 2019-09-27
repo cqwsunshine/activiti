@@ -28,7 +28,9 @@ import org.activiti.engine.impl.UserQueryImpl;
  */
 public interface UserEntityManager extends EntityManager<UserEntity> {
 
-  User createNewUser(String userId);
+  User createNewUser(String id);
+
+  User createNewUser(String id, String userId, String systemId);
 
   void updateUser(User updatedUser);
 

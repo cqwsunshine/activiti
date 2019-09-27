@@ -7,39 +7,45 @@
   <!-- USER INSERT -->
 
   <insert id="insertUser" parameterType="org.activiti.engine.impl.persistence.entity.UserEntityImpl">
-    insert into ${prefix}ACT_ID_USER (ID_, REV_, FIRST_, LAST_, EMAIL_, PWD_)
+    insert into ${prefix}ACT_ID_USER (ID_, REV_, FIRST_, LAST_, EMAIL_, PWD_, USERID_, SYSTEMID_)
     values (
       #{id ,jdbcType=VARCHAR},
       1,
       #{firstName ,jdbcType=VARCHAR},
       #{lastName ,jdbcType=VARCHAR},
       #{email ,jdbcType=VARCHAR},
-      #{password ,jdbcType=VARCHAR}
+      #{password ,jdbcType=VARCHAR},
+      #{userId, jdbcType=VARCHAR},
+      #{systemId, jdbcType=VARCHAR}
     )
   </insert>
 
   <insert id="bulkInsertUser" parameterType="java.util.List">
-    INSERT INTO ${prefix}ACT_ID_USER (ID_, REV_, FIRST_, LAST_, EMAIL_, PWD_) VALUES 
+    INSERT INTO ${prefix}ACT_ID_USER (ID_, REV_, FIRST_, LAST_, EMAIL_, PWD_, USERID_, SYSTEMID_) VALUES
       <foreach collection="list" item="user" index="index" separator=",">
         (#{user.id ,jdbcType=VARCHAR},
          1,
          #{user.firstName ,jdbcType=VARCHAR},
          #{user.lastName ,jdbcType=VARCHAR},
          #{user.email ,jdbcType=VARCHAR},
-         #{user.password ,jdbcType=VARCHAR})
+         #{user.password ,jdbcType=VARCHAR}
+          #{user.userId, jdbcType=VARCHAR}
+          #{user.systemId, jdbcType=VARCHAR})
       </foreach>
   </insert>
 
   <insert id="bulkInsertUser" databaseId="oracle" parameterType="java.util.List">
     INSERT ALL 
       <foreach collection="list" item="user" index="index">
-        INTO ${prefix}ACT_ID_USER (ID_, REV_, FIRST_, LAST_, EMAIL_, PWD_) VALUES 
+        INTO ${prefix}ACT_ID_USER (ID_, REV_, FIRST_, LAST_, EMAIL_, PWD_, USERID_, SYSTEMID_) VALUES
         (#{user.id ,jdbcType=VARCHAR},
          1,
          #{user.firstName ,jdbcType=VARCHAR},
          #{user.lastName ,jdbcType=VARCHAR},
          #{user.email ,jdbcType=VARCHAR},
-         #{user.password ,jdbcType=VARCHAR})
+         #{user.password ,jdbcType=VARCHAR}
+          #{user.userId, jdbcType=VARCHAR}
+          #{user.systemId, jdbcType=VARCHAR})
       </foreach>
     SELECT * FROM dual
   </insert>
@@ -53,7 +59,9 @@
       LAST_ = #{lastName ,jdbcType=VARCHAR},
       EMAIL_ = #{email ,jdbcType=VARCHAR},
       PWD_ = #{password ,jdbcType=VARCHAR},
-      PICTURE_ID_ = #{pictureByteArrayRef ,typeHandler=ByteArrayRefTypeHandler}
+      PICTURE_ID_ = #{pictureByteArrayRef ,typeHandler=ByteArrayRefTypeHandler},
+      USERID_ = #{userId, jdbcType=VARCHAR},
+      SYSTEMID_ = #{systemId, jdbcType=VARCHAR}
     where ID_ = #{id}
       and REV_ = #{revision}
   </update>
@@ -74,6 +82,8 @@
     <result property="email" column="EMAIL_" jdbcType="VARCHAR" />
     <result property="password" column="PWD_" jdbcType="VARCHAR" />
     <result property="pictureByteArrayRef" column="PICTURE_ID_" typeHandler="ByteArrayRefTypeHandler" />
+    <result property="userId" column="USERID_" jdbcType="VARCHAR"/>
+    <result property="systemId" column="SYSTEMID_" jdbcType="VARCHAR"/>
   </resultMap>
   
   <!-- USER SELECT -->
@@ -128,6 +138,12 @@
       </if>
       <if test="groupId != null">
         and G.ID_ = #{groupId}
+      </if>
+      <if test="userId != null">
+          and RES.USERID_ = #{userId}
+      </if>
+      <if test="systemId != null">
+          and RES.SYSTEMID_ = #{systemId}
       </if>
       <if test="procDefId != null">
         and exists (select ID_ from ${prefix}ACT_RU_IDENTITYLINK where PROC_DEF_ID_ = #{procDefId} and USER_ID_=RES.ID_ )

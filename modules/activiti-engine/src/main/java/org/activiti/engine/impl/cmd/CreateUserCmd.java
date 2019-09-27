@@ -28,15 +28,36 @@ public class CreateUserCmd implements Command<User>, Serializable {
   private static final long serialVersionUID = 1L;
 
   protected String userId;
+  protected String id;
+  protected String systemId;
 
-  public CreateUserCmd(String userId) {
-    if (userId == null) {
+  public CreateUserCmd(String id) {
+    if (id == null) {
       throw new ActivitiIllegalArgumentException("userId is null");
     }
-    this.userId = userId;
+    this.id = id;
+  }
+
+  public CreateUserCmd(String id, String userId, String systemId){
+      if (id == null) {
+          throw new ActivitiIllegalArgumentException("userId is null");
+      }
+      if (userId == null) {
+          throw new ActivitiIllegalArgumentException("userId is null");
+      }
+      if (systemId == null){
+          throw new ActivitiIllegalArgumentException("systemId is null");
+      }
+      this.id = id;
+      this.userId = userId;
+      this.systemId = systemId;
   }
 
   public User execute(CommandContext commandContext) {
-    return commandContext.getUserEntityManager().createNewUser(userId);
+      if(id != null && userId != null && systemId != null){
+          return commandContext.getUserEntityManager().createNewUser(id,userId,systemId);
+      }else {
+          return commandContext.getUserEntityManager().createNewUser(id);
+      }
   }
 }

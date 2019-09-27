@@ -49,5 +49,13 @@ public interface UserEntity extends User, Entity, HasRevision {
   boolean isPictureSet();
 
   ByteArrayRef getPictureByteArrayRef();
+
+  String getUserId();
+
+  void setUserId(String userId);
+
+  String getSystemId();
+
+  void setSystemId(String systemId);
   
 }

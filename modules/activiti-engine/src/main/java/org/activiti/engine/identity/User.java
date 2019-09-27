@@ -44,4 +44,12 @@ public interface User extends Serializable {
   void setPassword(String string);
 
   boolean isPictureSet();
+
+  String getUserId();
+
+  void setUserId(String userId);
+
+  String getSystemId();
+
+  void setSystemId(String systemId);
 }

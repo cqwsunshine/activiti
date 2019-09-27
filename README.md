@@ -218,3 +218,39 @@ FAQ
     * 删除角色组(根据角色组id)
     identityService.deleteGroup(groupId);
     
+用户信息添加用户ID
+------------------------------------------
+* act_id_user添加userId字段
+    
+    * 修改脚本act_id_user
+    位置: org/activiti/db/create/activiti.mysql.create.identity.sql
+    
+    * 修改mapper.xml文件
+    位置：org/activiti/db/mapping/entity/User.xml
+    
+    * 修改实体类
+    org.activiti.engine.identity.User
+    org.activiti.engine.impl.persistence.entity.UserEntity
+    org.activiti.engine.impl.persistence.entity.UserEntityImpl
+    org.activiti.engine.impl.persistence.entity.UserEntityManager
+    
+    * 修改接口
+    org.activiti.engine.IdentityService
+    添加新建用户User newUser(String id, String userId, String systemId);
+    org.activiti.engine.impl.IdentityServiceImpl
+    org.activiti.engine.impl.cmd.CreateUserCmd 
+    添加CreateUserCmd(String id, String userId, String systemId)
+    
+    * 查询相关类
+    org.activiti.engine.identity.UserQuery
+    org.activiti.engine.impl.UserQueryProperty
+    org.activiti.engine.impl.cmd.DeleteUserCmd
+    
+    * 相关操作
+    需要自己维护用户表中主键id。 用户id和systemId是唯一组合,不能重复
+    创建用户identityService.newUser(String id, String userId, String systemId);
+    保存用户identityService.saveUser(user);
+    查询用户user = identityService.createUserQuery().userSystemId(systemId).userUserId(userId).singleResult();
+    
+      
+    

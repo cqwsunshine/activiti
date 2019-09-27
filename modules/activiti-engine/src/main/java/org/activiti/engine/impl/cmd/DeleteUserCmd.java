@@ -24,17 +24,17 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 public class DeleteUserCmd implements Command<Void>, Serializable {
 
   private static final long serialVersionUID = 1L;
-  String userId;
+  String id;
 
-  public DeleteUserCmd(String userId) {
-    this.userId = userId;
+  public DeleteUserCmd(String id) {
+    this.id = id;
   }
 
   public Void execute(CommandContext commandContext) {
-    if (userId == null) {
-      throw new ActivitiIllegalArgumentException("userId is null");
+    if (id == null) {
+      throw new ActivitiIllegalArgumentException("id is null");
     }
-    commandContext.getUserEntityManager().delete(userId);
+    commandContext.getUserEntityManager().delete(id);
 
     return null;
   }

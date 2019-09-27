@@ -32,10 +32,19 @@ public interface IdentityService {
   /**
    * Creates a new user. The user is transient and must be saved using {@link #saveUser(User)}.
    * 
-   * @param userId
+   * @param id
    *          id for the new user, cannot be null.
    */
-  User newUser(String userId);
+  User newUser(String id);
+
+    /**
+     * 根据用户id,系统标识创建用户
+     * @param id 主键
+     * @param userId 用户id
+     * @param systemId 系统标识
+     * @return
+     */
+  User newUser(String id, String userId, String systemId);
 
   /**
    * Saves the user. If the user already existed, the user is updated.
@@ -58,10 +67,10 @@ public interface IdentityService {
   NativeUserQuery createNativeUserQuery();
 
   /**
-   * @param userId
+   * @param id
    *          id of user to delete, cannot be null. When an id is passed for an unexisting user, this operation is ignored.
    */
-  void deleteUser(String userId);
+  void deleteUser(String id);
 
   /**
    * Creates a new group. The group is transient and must be saved using {@link #saveGroup(Group)}.

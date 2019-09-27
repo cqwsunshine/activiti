@@ -54,6 +54,10 @@ public interface UserQuery extends Query<UserQuery, User> {
    */
   UserQuery userEmailLike(String emailLike);
 
+  UserQuery userUserId(String userId);
+
+  UserQuery userSystemId(String systemId);
+
   /** Only select {@link User}s that belong to the given group. */
   UserQuery memberOfGroup(String groupId);
 
@@ -64,6 +68,7 @@ public interface UserQuery extends Query<UserQuery, User> {
 
   // sorting ////////////////////////////////////////////////////////
 
+  UserQuery orderById();
   /**
    * Order by user id (needs to be followed by {@link #asc()} or {@link #desc()}).
    */
@@ -83,4 +88,5 @@ public interface UserQuery extends Query<UserQuery, User> {
    * Order by user email (needs to be followed by {@link #asc()} or {@link #desc()}).
    */
   UserQuery orderByUserEmail();
+
 }

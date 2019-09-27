@@ -16,8 +16,9 @@ create table ACT_ID_MEMBERSHIP (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 create table ACT_ID_USER (
-    ID_ varchar(64) COMMENT '用户ID', -- 用户ID
+    ID_ varchar(64) COMMENT '主键ID', -- 主键ID
     REV_ integer,
+    USERID_ varchar(255) COMMENT '用户ID', -- 用户ID
     FIRST_ varchar(255) COMMENT '用户名', -- 用户名
     LAST_ varchar(255),
     EMAIL_ varchar(255),

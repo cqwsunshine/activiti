@@ -32,18 +32,23 @@ public class UserEntityImpl extends AbstractEntity implements UserEntity, Serial
   protected String lastName;
   protected String email;
   protected String password;
+  protected String userId;
+  protected String systemId;
 
   protected ByteArrayRef pictureByteArrayRef;
 
   public UserEntityImpl() {
   }
 
+  @Override
   public Object getPersistentState() {
     Map<String, Object> persistentState = new HashMap<String, Object>();
     persistentState.put("firstName", firstName);
     persistentState.put("lastName", lastName);
     persistentState.put("email", email);
     persistentState.put("password", password);
+    persistentState.put("userId",userId);
+    persistentState.put("systemId",systemId);
     
     if (pictureByteArrayRef != null) {
       persistentState.put("pictureByteArrayId", pictureByteArrayRef.getId());
@@ -52,6 +57,7 @@ public class UserEntityImpl extends AbstractEntity implements UserEntity, Serial
     return persistentState;
   }
 
+  @Override
   public Picture getPicture() {
     if (pictureByteArrayRef != null && pictureByteArrayRef.getId() != null) {
       return new Picture(pictureByteArrayRef.getBytes(), pictureByteArrayRef.getName());
@@ -59,6 +65,7 @@ public class UserEntityImpl extends AbstractEntity implements UserEntity, Serial
     return null;
   }
 
+  @Override
   public void setPicture(Picture picture) {
     if(picture != null) {
       savePicture(picture);
@@ -79,45 +86,66 @@ public class UserEntityImpl extends AbstractEntity implements UserEntity, Serial
       pictureByteArrayRef.delete();
     }
   }
-  
+
+  @Override
   public String getFirstName() {
     return firstName;
   }
 
+  @Override
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  @Override
   public String getLastName() {
     return lastName;
   }
 
+  @Override
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
+  @Override
   public String getEmail() {
     return email;
   }
 
+  @Override
   public void setEmail(String email) {
     this.email = email;
   }
 
+  @Override
   public String getPassword() {
     return password;
   }
 
+  @Override
   public void setPassword(String password) {
     this.password = password;
   }
 
+  @Override
   public boolean isPictureSet() {
     return pictureByteArrayRef != null && pictureByteArrayRef.getId() != null;
   }
 
+  @Override
   public ByteArrayRef getPictureByteArrayRef() {
     return pictureByteArrayRef;
   }
-  
+
+  @Override
+  public String getUserId(){return userId;}
+
+  @Override
+  public void setUserId(String userId){this.userId = userId;}
+
+  @Override
+  public String getSystemId(){return systemId;}
+
+  @Override
+  public void setSystemId(String systemId){this.systemId = systemId;}
 }

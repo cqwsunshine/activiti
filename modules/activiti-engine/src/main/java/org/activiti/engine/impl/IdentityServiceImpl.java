@@ -63,9 +63,14 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
     }
 
     @Override
-  public User newUser(String userId) {
-    return commandExecutor.execute(new CreateUserCmd(userId));
+  public User newUser(String id) {
+    return commandExecutor.execute(new CreateUserCmd(id));
   }
+
+    @Override
+    public User newUser(String id, String userId, String systemId) {
+        return commandExecutor.execute(new CreateUserCmd(id,userId,systemId));
+    }
 
     @Override
   public void saveGroup(Group group) {
@@ -118,8 +123,8 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
   }
 
     @Override
-  public void deleteUser(String userId) {
-    commandExecutor.execute(new DeleteUserCmd(userId));
+  public void deleteUser(String id) {
+    commandExecutor.execute(new DeleteUserCmd(id));
   }
 
     @Override

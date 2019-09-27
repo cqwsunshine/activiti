@@ -51,17 +51,30 @@ public class UserEntityManagerImpl extends AbstractEntityManager<UserEntity> imp
     return userDataManager.findById(entityId);
   }
 
-  public User createNewUser(String userId) {
+  @Override
+  public User createNewUser(String id) {
     UserEntity userEntity = create();
-    userEntity.setId(userId);
+    userEntity.setId(id);
     userEntity.setRevision(0); // needed as users can be transient
     return userEntity;
   }
 
+    @Override
+    public User createNewUser(String id, String userId, String systemId) {
+        UserEntity userEntity = create();
+        userEntity.setId(id);
+        userEntity.setUserId(userId);
+        userEntity.setSystemId(systemId);
+        userEntity.setRevision(0); // needed as users can be transient
+        return userEntity;
+    }
+
+    @Override
   public void updateUser(User updatedUser) {
     super.update((UserEntity) updatedUser);
   }
 
+  @Override
   public void delete(UserEntity userEntity) {
     super.delete(userEntity);
     deletePicture(userEntity);
@@ -75,34 +88,40 @@ public class UserEntityManagerImpl extends AbstractEntityManager<UserEntity> imp
     }
   }
 
-  public void delete(String userId) {
-    UserEntity user = findById(userId);
+  @Override
+  public void delete(String id) {
+    UserEntity user = findById(id);
     if (user != null) {
-      List<IdentityInfoEntity> identityInfos = getIdentityInfoEntityManager().findIdentityInfoByUserId(userId);
+      List<IdentityInfoEntity> identityInfos = getIdentityInfoEntityManager().findIdentityInfoByUserId(id);
       for (IdentityInfoEntity identityInfo : identityInfos) {
         getIdentityInfoEntityManager().delete(identityInfo);
       }
-      getMembershipEntityManager().deleteMembershipByUserId(userId);
+      getMembershipEntityManager().deleteMembershipByUserId(id);
       delete(user);
     }
   }
 
+  @Override
   public List<User> findUserByQueryCriteria(UserQueryImpl query, Page page) {
     return userDataManager.findUserByQueryCriteria(query, page);
   }
 
+  @Override
   public long findUserCountByQueryCriteria(UserQueryImpl query) {
     return userDataManager.findUserCountByQueryCriteria(query);
   }
 
+  @Override
   public List<Group> findGroupsByUser(String userId) {
     return userDataManager.findGroupsByUser(userId);
   }
 
+  @Override
   public UserQuery createNewUserQuery() {
     return new UserQueryImpl(getCommandExecutor());
   }
 
+  @Override
   public Boolean checkPassword(String userId, String password) {
     User user = null;
     
@@ -116,10 +135,12 @@ public class UserEntityManagerImpl extends AbstractEntityManager<UserEntity> imp
     return false;
   }
 
+  @Override
   public List<User> findUsersByNativeQuery(Map<String, Object> parameterMap, int firstResult, int maxResults) {
     return userDataManager.findUsersByNativeQuery(parameterMap, firstResult, maxResults);
   }
 
+  @Override
   public long findUserCountByNativeQuery(Map<String, Object> parameterMap) {
     return userDataManager.findUserCountByNativeQuery(parameterMap);
   }

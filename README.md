@@ -252,5 +252,31 @@ FAQ
     保存用户identityService.saveUser(user);
     查询用户user = identityService.createUserQuery().userSystemId(systemId).userUserId(userId).singleResult();
     
-      
+往工作流中同步用户和角色
+-----------------------------------------
+* 添加角色
+
+    Group group = identityService.newGroup("1","credit","1");
+    group.setName("管理员");// 角色名称
+    group.setType(GroupTypes.TYPE_ASSIGNMENT);//todo 要添加分组类型，否则按分组查询不到
+    identityService.saveGroup(group);   
+       
+* 添加用户
     
+    User user = identityService.newUser("1","1","credit");
+    user.setFirstName("zhangsan");
+    identityService.saveUser(user);    
+    
+*  添加用户和角色关系
+    
+    identityService.createMembership(user.getId(),group.getId());
+    
+* 查询角色组信息
+    org.activiti.app.rest.editor.EditorGroupsResource
+    List<Group> matchingGroups = identityService.createGroupQuery()
+            .groupNameLike(groupNameFilter)
+            .groupType(GroupTypes.TYPE_ASSIGNMENT)
+            .list();
+            
+
+        

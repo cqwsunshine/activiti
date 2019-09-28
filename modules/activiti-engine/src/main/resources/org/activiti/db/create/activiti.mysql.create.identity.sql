@@ -11,7 +11,6 @@ create table ACT_ID_GROUP (
 create table ACT_ID_MEMBERSHIP (
     USER_ID_ varchar(64) COMMENT '用户ID',-- 用户ID
     GROUP_ID_ varchar(64) COMMENT '组ID', -- 组ID
-    SYSTEMID_ varchar(255) COMMENT '系统标识', -- 系统标识
     primary key (USER_ID_, GROUP_ID_)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 

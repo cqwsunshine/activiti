@@ -27,10 +27,10 @@
 	</property> -->
 
     <!-- job executor configurations -->
-    <property name="asyncExecutor" ref="asyncExecutor" />
-    <property name="asyncExecutorActivate" value="false" />
+    <!--<property name="asyncExecutor" ref="asyncExecutor" />-->
+    <!--<property name="asyncExecutorActivate" value="false" />-->
     
-    <property name="asyncFailedJobWaitTime" value="1" />
+    <!--<property name="asyncFailedJobWaitTime" value="1" />-->
 
     <!-- mail server configurations -->
     <property name="mailServerPort" value="5025" />

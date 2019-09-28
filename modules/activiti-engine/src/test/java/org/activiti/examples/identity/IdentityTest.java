@@ -41,10 +41,10 @@ public class IdentityTest extends PluggableActivitiTestCase {
 
     identityService.deleteUser("johndoe");*/
 
-      User user = identityService.newUser("12","22","credit");
-      user.setPassword("xxx");
+      User user = identityService.newUser("1","1","credit");
+      //user.setPassword("xxx");
       identityService.saveUser(user);
-
+/*
       User user2 = identityService.newUser("10","22","jpt");
       identityService.saveUser(user2);
 
@@ -61,6 +61,7 @@ public class IdentityTest extends PluggableActivitiTestCase {
 
       identityService.deleteUser("12");
       identityService.deleteUser("10");
+      */
   }
 
   public void testFindGroupsByUserAndType() {
@@ -140,11 +141,16 @@ public class IdentityTest extends PluggableActivitiTestCase {
      * 添加角色
      */
   public void testGroup() {
-    Group group = identityService.newGroup("sales1","credit","1");
-    group.setName("Sales division");
+    Group group = identityService.newGroup("1","credit","1");
+    group.setName("管理员");
 
     identityService.saveGroup(group);
 
+    group = identityService.newGroup("2","credit","2");
+    group.setName("业务员");
+    identityService.saveGroup(group);
+
+/*
     Group group1 = identityService.newGroup("sales2","jpt","1");
     identityService.saveGroup(group1);
 
@@ -158,10 +164,30 @@ public class IdentityTest extends PluggableActivitiTestCase {
 
     identityService.deleteGroup("sales1");
     identityService.deleteGroup("sales2");
+    */
 
   }
 
   public void testMembership() {
+    Group group = identityService.newGroup("1","jpt","1");
+    group.setName("管理员");
+    //group.setType(GroupTypes.TYPE_ASSIGNMENT);todo 要添加分组类型，否则按分组查询不到
+    identityService.saveGroup(group);
+    Group group2 = identityService.newGroup("2","jpt","2");
+    group2.setName("业务员");
+    identityService.saveGroup(group2);
+
+    User user = identityService.newUser("1","1","jpt");
+    user.setFirstName("zhangsan");
+    identityService.saveUser(user);
+    User user2 = identityService.newUser("2","2","jpt");
+    user2.setFirstName("lisi");
+    identityService.saveUser(user2);
+
+    identityService.createMembership(user.getId(),group.getId());
+    identityService.createMembership(user2.getId(),group2.getId());
+      System.out.println();
+    /*
     Group sales = identityService.newGroup("sales");
     identityService.saveGroup(sales);
 
@@ -204,6 +230,7 @@ public class IdentityTest extends PluggableActivitiTestCase {
     identityService.deleteUser("jackblack");
     identityService.deleteUser("joesmoe");
     identityService.deleteUser("johndoe");
+    */
   }
 
   private Object createStringSet(String... strings) {

@@ -15,6 +15,7 @@ package org.activiti.examples.identity;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -166,6 +167,17 @@ public class IdentityTest extends PluggableActivitiTestCase {
     identityService.deleteGroup("sales2");
     */
 
+  }
+
+    /**
+     * 查询系统标识
+     */
+  public void testSystemIds(){
+      List<String> list = identityService.getGroupsInfoKeys();
+      if(!CollectionUtils.isEmpty(list)){
+
+      }
+      System.out.println();
   }
 
   public void testMembership() {

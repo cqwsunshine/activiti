@@ -65,5 +65,10 @@ public class MybatisGroupDataManager extends AbstractDataManager<GroupEntity> im
   public long findGroupCountByNativeQuery(Map<String, Object> parameterMap) {
     return (Long) getDbSqlSession().selectOne("selectGroupCountByNativeQuery", parameterMap);
   }
-  
+
+    @Override
+    public List<String> findGroupInfoKeys() {
+        return getDbSqlSession().selectList("findGroupInfoKeys");
+    }
+
 }

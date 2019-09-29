@@ -278,5 +278,37 @@ FAQ
             .groupType(GroupTypes.TYPE_ASSIGNMENT)
             .list();
             
+Group中添加分组查询系统标识方法
+-------------------------------------------
+* 找到Group.xml 添加对应的sql
+    findGroupInfoKeys
 
+* 在identityService添加分组查询系统标识方法
+    
+    * org.activiti.engine.IdentityService接口中添加分组查询方法
+    
+    * org.activiti.engine.impl.IdentityServiceImpl 添加分组查询实现方法
+        因为都使用命令模式实现，所以自定义org.activiti.engine.impl.cmd.GetGroupInfoKeys
+        在该命令实体类中调用GroupEntityManager接口和新定义的方法。
         
+        在org.activiti.engine.impl.persistence.entity.GroupEntityManagerImpl实现分组查询方法
+        
+        在GroupEntityManagerImpl中调用GroupDataManager，来实现查询
+        所以在org.activiti.engine.impl.persistence.entity.data.GroupDataManager定义接口
+        
+        MybatisGroupDataManager实现GroupDataManager，在MybatisGroupDataManager中实现查询方法并放入对应mapper.xml中的id作为声明参数。
+        
+对上面进行在梳理
+----------------------------------------------        
+    MybatisGroupDataManager --继承-->GroupDataManager和AbstractDataManager获取DbSqlSession
+    通过DbSqlSession.selectList("mapper中声明的查询sql的id");
+    eg:getDbSqlSession().selectList("findGroupInfoKeys");
+    
+    GroupEntityManagerImpl --继承-->GroupEntityManager,
+    在GroupEntityManagerImpl中注入GroupDataManager，以便调用对应的查询方法
+    也就是说需要在GroupEntityManager中定义对应查询方法的接口，在GroupEntityManagerImpl中通过调用GroupDataManager进行实现
+    
+    IdentityServiceImpl --继承-->IdentityService
+    在IdentityServiceImpl中通过commandExecutor命令模式执行对应的命令GetGroupInfoKeys
+    
+    自定义查询命令GetGroupInfoKeys继承Command，在命令中调用GroupEntityManager来执行对应的查询方法。

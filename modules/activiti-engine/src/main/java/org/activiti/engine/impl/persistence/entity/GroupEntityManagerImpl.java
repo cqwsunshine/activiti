@@ -116,7 +116,12 @@ public class GroupEntityManagerImpl extends AbstractEntityManager<GroupEntity> i
     return ((GroupEntity) group).getRevision() == 0;
   }
 
-  public GroupDataManager getGroupDataManager() {
+    @Override
+    public List<String> findGroupInfoKeys() {
+        return groupDataManager.findGroupInfoKeys();
+    }
+
+    public GroupDataManager getGroupDataManager() {
     return groupDataManager;
   }
 

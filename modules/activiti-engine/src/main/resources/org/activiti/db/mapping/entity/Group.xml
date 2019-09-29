@@ -156,5 +156,8 @@
   <select id="selectGroupCountByNativeQuery" parameterType="java.util.Map" resultType="long">
     ${sql}
   </select>
-  
+
+  <select id="findGroupInfoKeys"  resultType="java.lang.String">
+      select SYSTEMID_ from ACT_ID_GROUP where SYSTEMID_ is not null GROUP BY SYSTEMID_
+  </select>
 </mapper>

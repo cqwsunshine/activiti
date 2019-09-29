@@ -31,6 +31,25 @@
                         </div>
                     </div>
 
+                    <!--start 添加SystemId-->
+                    <div class="form-group clearfix" ng-show="popup.assignmentObject.type !='idm'">
+                        <div class="col-xs-12">
+                            <div class="col-xs-4">
+                                <label>SystemId</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="btn-group span">
+                                    <button class="selection ng-pristine ng-valid ng-touched"
+                                            ng-options="option as (option.title | translate) for option in systemIdResults" bs-select
+                                            ng-model="systemId" activiti-fix-dropdown-bug>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-->
+
                     <div class="form-group clearfix" ng-show="popup.assignmentObject.type != 'idm'">
                         <div class="col-xs-12">
                             <label>{{'PROPERTY.ASSIGNMENT.ASSIGNEE' | translate}}</label>

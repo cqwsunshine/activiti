@@ -20,23 +20,7 @@ import org.activiti.engine.identity.NativeUserQuery;
 import org.activiti.engine.identity.Picture;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.identity.UserQuery;
-import org.activiti.engine.impl.cmd.CheckPassword;
-import org.activiti.engine.impl.cmd.CreateGroupCmd;
-import org.activiti.engine.impl.cmd.CreateGroupQueryCmd;
-import org.activiti.engine.impl.cmd.CreateMembershipCmd;
-import org.activiti.engine.impl.cmd.CreateUserCmd;
-import org.activiti.engine.impl.cmd.CreateUserQueryCmd;
-import org.activiti.engine.impl.cmd.DeleteGroupCmd;
-import org.activiti.engine.impl.cmd.DeleteMembershipCmd;
-import org.activiti.engine.impl.cmd.DeleteUserCmd;
-import org.activiti.engine.impl.cmd.DeleteUserInfoCmd;
-import org.activiti.engine.impl.cmd.GetUserInfoCmd;
-import org.activiti.engine.impl.cmd.GetUserInfoKeysCmd;
-import org.activiti.engine.impl.cmd.GetUserPictureCmd;
-import org.activiti.engine.impl.cmd.SaveGroupCmd;
-import org.activiti.engine.impl.cmd.SaveUserCmd;
-import org.activiti.engine.impl.cmd.SetUserInfoCmd;
-import org.activiti.engine.impl.cmd.SetUserPictureCmd;
+import org.activiti.engine.impl.cmd.*;
 import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.impl.persistence.entity.IdentityInfoEntity;
 
@@ -161,4 +145,10 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
   public void deleteUserInfo(String userId, String key) {
     commandExecutor.execute(new DeleteUserInfoCmd(userId, key));
   }
+
+    @Override
+    public List<String> getGroupsInfoKeys() {
+        return commandExecutor.execute(new GetGroupInfoKeys());
+    }
+
 }

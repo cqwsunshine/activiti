@@ -46,4 +46,9 @@ public interface GroupEntityManager extends EntityManager<GroupEntity> {
 
   boolean isNewGroup(Group group);
 
+    /**
+     * 查询系统标识
+     * @return
+     */
+    List<String> findGroupInfoKeys();
 }

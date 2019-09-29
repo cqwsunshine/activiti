@@ -34,5 +34,10 @@ public interface GroupDataManager extends DataManager<GroupEntity> {
   List<Group> findGroupsByNativeQuery(Map<String, Object> parameterMap, int firstResult, int maxResults);
 
   long findGroupCountByNativeQuery(Map<String, Object> parameterMap);
-  
+
+    /**
+     * 获取系统标识
+     * @return
+     */
+    List<String> findGroupInfoKeys();
 }

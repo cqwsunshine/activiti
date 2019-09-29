@@ -52,4 +52,11 @@ public class EditorGroupsResource {
     // list's size is equal to the page size
     return result;
   }
+
+  @RequestMapping(value = "/rest/systemIds", method = RequestMethod.GET)
+  public ResultListDataRepresentation getSystemIds(){
+      List<String> systemIds = identityService.createGroupQuery().selectSystemIdByGroup();
+      System.out.println();
+      return null;
+  }
 }

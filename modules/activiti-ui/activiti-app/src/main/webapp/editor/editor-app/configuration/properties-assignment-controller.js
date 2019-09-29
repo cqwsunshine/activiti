@@ -47,6 +47,7 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
             type:$scope.assignment.type,
             idm: {
                 type:undefined,
+                systemId: [],//todo 添加系统标识下拉选
                 assignee: undefined,
                 candidateUsers: [],
                 candidateGroups: []
@@ -104,8 +105,28 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
             }
         }
     }
-    
-    //fill the static area
+
+    // todo 添加系统标识
+/*    $scope.systemIdResults = [
+        {id: "credit", title: $translate.instant('credit')},
+        {id: "jpt", title: $translate.instant('jpt')}
+    ];*/
+
+    /*if (!$scope.systemId){
+        $scope.systemId = $scope.systemIds[0];
+    }else{
+
+    }*/
+
+    // todo 获取系统标识
+    $scope.systemIdFilter = function(){
+        GroupService.getFilteredSystemIds($scope.popup.systemIdFilter).then(function(result){
+            $scope.popup.systemIdResults = result.data;
+
+        });
+    };
+
+        //fill the static area
     if ($scope.assignment.assignee) {
         $scope.popup.assignmentObject.static.assignee = $scope.assignment.assignee;
     }

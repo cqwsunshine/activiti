@@ -15,6 +15,8 @@ package org.activiti.engine.identity;
 
 import org.activiti.engine.query.Query;
 
+import java.util.List;
+
 /**
  * Allows to programmatically query for {@link Group}s.
  * 

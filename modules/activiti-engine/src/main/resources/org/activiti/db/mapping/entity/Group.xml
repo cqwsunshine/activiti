@@ -139,7 +139,7 @@
       <if test="roleId != null">
           and RES.ROLEID_ = #{roleId}
       </if>
-      <if test="systemId != null">
+      <if test="systemId != null and systemId!=''">
           and RES.SYSTEMID_ = #{systemId}
       </if>
       <if test="procDefId != null">

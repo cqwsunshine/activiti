@@ -78,4 +78,15 @@ angular.module('activitiModeler').service('GroupService', ['$http', '$q',
                 params: params
             });
         };
+
+        // todo 获取系统标识数据
+        this.getFilteredSystemIds = function () {
+            return httpAsPromise(
+                {
+                    method: 'GET',
+                    url: ACTIVITI.CONFIG.contextRoot + '/app/rest/systemIds'
+                }
+            )
+        };
+
     }]);

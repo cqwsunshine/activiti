@@ -31,17 +31,17 @@
                         </div>
                     </div>
 
-                    <!--start 添加SystemId-->
-                    <div class="form-group clearfix" ng-show="popup.assignmentObject.type !='idm'">
+                    <!--start ng-show="popup.assignmentObject.type !='idm"   -->
+                    <div class="form-group clearfix" >
                         <div class="col-xs-12">
                             <div class="col-xs-4">
                                 <label>SystemId</label>
                             </div>
                             <div class="col-xs-8">
-                                <div class="btn-group span">
+                                <div class="btn-group span" ng-init="systemIdFilter()">
                                     <button class="selection ng-pristine ng-valid ng-touched"
-                                            ng-options="option as (option.title | translate) for option in systemIdResults" bs-select
-                                            ng-model="systemId" activiti-fix-dropdown-bug>
+                                            ng-options="option for option in popup.assignmentObject.idm.systemIds" bs-select
+                                            ng-model="systemId" activiti-fix-dropdown-bug ng-change="selectSystemId()">
 
                                     </button>
                                 </div>

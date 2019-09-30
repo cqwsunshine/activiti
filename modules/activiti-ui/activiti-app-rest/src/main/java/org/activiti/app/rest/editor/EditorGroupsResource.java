@@ -12,8 +12,6 @@
  */
 package org.activiti.app.rest.editor;
 
-import java.util.List;
-
 import org.activiti.app.constant.GroupTypes;
 import org.activiti.app.model.common.ResultListDataRepresentation;
 import org.activiti.engine.IdentityService;
@@ -25,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Rest resource for managing groups, used in the editor app.
  */
@@ -35,7 +35,8 @@ public class EditorGroupsResource {
   protected IdentityService identityService;
 
   @RequestMapping(value = "/rest/editor-groups", method = RequestMethod.GET)
-  public ResultListDataRepresentation getGroups(@RequestParam(required = false, value = "filter") String filter) {
+  public ResultListDataRepresentation getGroups(@RequestParam(required = false, value = "filter") String filter
+          ,@RequestParam(required = false, value = "systemId",defaultValue = "") String systemId) {
     String groupNameFilter = filter;
     if (StringUtils.isEmpty(groupNameFilter)) {
       groupNameFilter = "%";
@@ -45,6 +46,7 @@ public class EditorGroupsResource {
     List<Group> matchingGroups = identityService.createGroupQuery()
         .groupNameLike(groupNameFilter)
         .groupType(GroupTypes.TYPE_ASSIGNMENT)
+        .groupSystemId(systemId)
         .list();
 
     ResultListDataRepresentation result = new ResultListDataRepresentation(matchingGroups);
@@ -55,8 +57,8 @@ public class EditorGroupsResource {
 
   @RequestMapping(value = "/rest/systemIds", method = RequestMethod.GET)
   public ResultListDataRepresentation getSystemIds(){
-      List<String> systemIds = identityService.createGroupQuery().selectSystemIdByGroup();
-      System.out.println();
-      return null;
+      List<String> systemIds = identityService.getGroupsInfoKeys();
+      ResultListDataRepresentation result = new ResultListDataRepresentation(systemIds);
+      return result;
   }
 }

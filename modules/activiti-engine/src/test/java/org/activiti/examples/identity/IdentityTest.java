@@ -15,6 +15,7 @@ package org.activiti.examples.identity;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
@@ -177,6 +178,20 @@ public class IdentityTest extends PluggableActivitiTestCase {
       if(!CollectionUtils.isEmpty(list)){
 
       }
+      System.out.println();
+  }
+
+    /**
+     * 根据系统标识查询指定系统的角色信息
+     */
+  public void testQueryGroupsBySystemIdsAndFilter(){
+      String systemId = "";
+      List<Group> list = identityService.createGroupQuery()
+              .groupNameLike("%")
+              .groupType("assignment")
+              .groupSystemId(systemId)
+              .list();
+      System.out.println();
       System.out.println();
   }
 

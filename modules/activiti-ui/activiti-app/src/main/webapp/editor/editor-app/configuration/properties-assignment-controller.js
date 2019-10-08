@@ -433,6 +433,14 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
             });
         }
 
+        // 选择assignemt
+        $scope.selectAssignment = function(){
+            if($scope.assignmentOption && $scope.assignmentOption.title == 'Candidate groups'){
+                console.log("assignment标识:"+$scope.assignmentOption.title);
+                $scope.selectSystemId();
+            }
+        }
+
         $scope.save = function () {
 
         handleAssignmentInput($scope.popup.assignmentObject.static);

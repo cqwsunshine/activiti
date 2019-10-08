@@ -94,7 +94,7 @@
                             <div class="col-xs-8">
                                 <div class="btn-group span">
                                     <button class="selection" ng-options="option as (option.title | translate) for option in assignmentOptions"
-                                            bs-select ng-model="assignmentOption" activiti-fix-dropdown-bug>
+                                            bs-select ng-model="assignmentOption" activiti-fix-dropdown-bug ng-change="selectAssignment()">
                                     </button>
                                 </div>
                             </div>

@@ -171,8 +171,10 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
         }
     };
 
+
+    // 根据条件查询分组角色
     $scope.updateGroupFilter = function() {
-        if ($scope.popup.oldGroupFilter == undefined || $scope.popup.oldGroupFilter != $scope.popup.groupFilter) {
+        /*if ($scope.popup.oldGroupFilter == undefined || $scope.popup.oldGroupFilter != $scope.popup.groupFilter) {
             if (!$scope.popup.groupFilter) {
                 $scope.popup.oldGroupFilter = '';
             } else {
@@ -183,7 +185,13 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
                 $scope.popup.groupResults = result.data;
                 $scope.resetGroupSelection();
             });
+        }*/
+        if($scope.systemId){
+            $scope.selectSystemId();
+        }else{
+
         }
+
     };
 
     $scope.confirmUser = function(user) {
@@ -405,7 +413,24 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
 
         // todo 选中系统标识
         $scope.selectSystemId = function () {
-            console.log("llll");
+            console.log("系统标识:"+$scope.systemId);
+            console.log("分组:"+$scope.popup.groupFilter);
+            if (!$scope.systemId){
+                alert("请选择系统");
+            }
+            if ($scope.popup.oldGroupFilter == undefined || $scope.popup.oldGroupFilter != $scope.popup.groupFilter) {
+                if (!$scope.popup.groupFilter) {
+                    $scope.popup.oldGroupFilter = '';
+                } else {
+                    $scope.popup.oldGroupFilter = $scope.popup.groupFilter;
+                }
+
+            }
+
+            GroupService.getFilteredGroupsBySystemId($scope.popup.groupFilter,$scope.systemId).then(function(result) {
+                $scope.popup.groupResults = result.data;
+                $scope.resetGroupSelection();
+            });
         }
 
         $scope.save = function () {

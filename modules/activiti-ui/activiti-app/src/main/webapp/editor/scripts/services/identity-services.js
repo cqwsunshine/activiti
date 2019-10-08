@@ -89,4 +89,24 @@ angular.module('activitiModeler').service('GroupService', ['$http', '$q',
             )
         };
 
+        // 根据系统标识查询分组角色
+        this.getFilteredGroupsBySystemId = function (filterText,systemId) {
+            console.log("identity-->"+filterText+"--->"+systemId);
+            var params={};
+            if(filterText) {
+                params.filter=filterText;
+            }
+
+            if(systemId){
+                params.systemId=systemId;
+            }
+
+            return httpAsPromise({
+                method: 'GET',
+                url: ACTIVITI.CONFIG.contextRoot + '/app/rest/editor-groups',
+                params: params
+            });
+        };
+
+
     }]);

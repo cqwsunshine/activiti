@@ -435,7 +435,8 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
 
         // 选择assignemt
         $scope.selectAssignment = function(){
-            if($scope.assignmentOption && $scope.assignmentOption.title == 'Candidate groups'){
+            //if($scope.assignmentOption && $scope.assignmentOption.title == 'Candidate groups'){
+            if($scope.assignmentOption && $scope.assignmentOption.title == '候选组'){// 汉化后
                 console.log("assignment标识:"+$scope.assignmentOption.title);
                 $scope.selectSystemId();
             }

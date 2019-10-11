@@ -353,8 +353,29 @@ angular.module('activitiModeler').controller('SaveModelCtrl', [ '$rootScope', '$
         modelMetaData.description = $scope.saveDialog.description;
 
         var json = $scope.editor.getJSON();
-        json = JSON.stringify(json);
+        //console.log(json.childShapes[1].properties.usertaskassignment.assignment.idm.candidateGroups[0].systemId);
+        // todo 获取编辑的流程系统标识，进行比较，是否属于同一系统
+        var systemIds = [];
+        var childShapes = json.childShapes;
+        if(childShapes){
+            for (var i = childShapes.length - 1; i >= 0; i--) {
+                console.log(i);
+                if (childShapes[i].properties.usertaskassignment && childShapes[i].properties.usertaskassignment.assignment
+                    && childShapes[i].properties.usertaskassignment.assignment.idm) {
+                    var candidateGroups = childShapes[i].properties.usertaskassignment.assignment.idm.candidateGroups || '';
+                    console.log("candidateGroups["+i+"]-->"+candidateGroups);
 
+                    if (candidateGroups) {
+                        for (var j = candidateGroups.length - 1; j >= 0; j--) {
+                            console.log(candidateGroups[j].systemId);
+                            systemIds.push(candidateGroups[j].systemId);
+                        }
+                    }
+                }
+            }
+        }
+
+        json = JSON.stringify(json);
         var params = {
             modeltype: modelMetaData.model.modelType,
             json_xml: json,

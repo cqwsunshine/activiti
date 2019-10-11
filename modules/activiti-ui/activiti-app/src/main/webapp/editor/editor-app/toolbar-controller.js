@@ -51,7 +51,7 @@ angular.module('activitiModeler')
 
         // Click handler for toolbar buttons
         $scope.toolbarButtonClicked = function(buttonIndex) {
-
+            // todo buttonIndex==0时为保存
             // Default behaviour
             var buttonClicked = $scope.items[buttonIndex];
             var services = { '$scope' : $scope, '$rootScope' : $rootScope, '$http' : $http, '$modal' : $modal, '$q' : $q, '$translate' : $translate};

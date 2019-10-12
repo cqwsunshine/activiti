@@ -363,7 +363,7 @@ angular.module('activitiModeler').controller('SaveModelCtrl', [ '$rootScope', '$
                 if (childShapes[i].properties.usertaskassignment && childShapes[i].properties.usertaskassignment.assignment
                     && childShapes[i].properties.usertaskassignment.assignment.idm) {
                     var candidateGroups = childShapes[i].properties.usertaskassignment.assignment.idm.candidateGroups || '';
-                    console.log("candidateGroups["+i+"]-->"+candidateGroups);
+                    //console.log("candidateGroups["+i+"]-->"+candidateGroups);
 
                     if (candidateGroups) {
                         for (var j = candidateGroups.length - 1; j >= 0; j--) {
@@ -374,6 +374,23 @@ angular.module('activitiModeler').controller('SaveModelCtrl', [ '$rootScope', '$
                 }
             }
         }
+        console.log("systemIds->"+JSON.stringify(systemIds));
+        if (systemIds){
+            for (var n = 0; n < systemIds.length-1; n++){
+                for (var m = 0; m < systemIds.length; m++){
+                    if(systemIds[n] != systemIds[m]){
+                        $scope.status = {
+                            loading: false
+                        };
+                        alert("请检查每个节点的系统标识是否一致");
+                        return;
+                    }
+                }
+            }
+        }
+        $scope.status = {
+            loading: true
+        };
 
         json = JSON.stringify(json);
         var params = {

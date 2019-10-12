@@ -311,10 +311,26 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
         }
     };
     
-    $scope.addCandidateGroup = function(group) {
+   /* $scope.addCandidateGroup = function(group) {
         $scope.popup.assignmentObject.idm.candidateGroups.push(group);
     };
-    
+*/
+    $scope.addCandidateGroup = function(group) {
+        console.log("add---"+group.name+"---"+group.systemId+"---"+JSON.stringify(group));
+        console.log("origin---"+JSON.stringify($scope.popup.assignmentObject.idm.candidateGroups));
+        // todo 编辑流程节点时，校验添加的角色是否是同一系统里的
+        if($scope.popup.assignmentObject && $scope.popup.assignmentObject.idm.candidateGroups){
+            var candidateGroups = $scope.popup.assignmentObject.idm.candidateGroups;
+            for(var i = 0; i < candidateGroups.length; i++){
+                if (candidateGroups[i].systemId != group.systemId) {
+                    alert("选择的候选组里的角色不属于同一系统，请重新选择");
+                    return;
+                }
+            }
+        }
+        $scope.popup.assignmentObject.idm.candidateGroups.push(group);
+    };
+
     $scope.removeCandidateGroup = function(group) {
         var groups = $scope.popup.assignmentObject.idm.candidateGroups;
         var indexToRemove = -1;

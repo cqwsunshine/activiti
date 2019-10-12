@@ -99,6 +99,8 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
             }
 
             if ($scope.assignment.idm.candidateGroups && $scope.assignment.idm.candidateGroups.length > 0) {
+                // todo 保证编辑流程后，再次打开时，回显系统标识
+                $scope.systemId = $scope.assignment.idm.candidateGroups[0].persistentState.systemId;
                 for (var i = 0; i < $scope.assignment.idm.candidateGroups.length; i++) {
                     $scope.popup.assignmentObject.idm.candidateGroups.push($scope.assignment.idm.candidateGroups[i]);
                 }
@@ -186,6 +188,7 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
                 $scope.resetGroupSelection();
             });
         }*/
+
         if($scope.systemId){
             $scope.selectSystemId();
         }else{
@@ -416,7 +419,7 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
             console.log("系统标识:"+$scope.systemId);
             console.log("分组:"+$scope.popup.groupFilter);
             if (!$scope.systemId){
-                alert("请选择系统");
+                alert("请选择系统标识");
             }
             if ($scope.popup.oldGroupFilter == undefined || $scope.popup.oldGroupFilter != $scope.popup.groupFilter) {
                 if (!$scope.popup.groupFilter) {
@@ -424,7 +427,6 @@ angular.module('activitiModeler').controller('KisBpmAssignmentPopupCtrl',
                 } else {
                     $scope.popup.oldGroupFilter = $scope.popup.groupFilter;
                 }
-
             }
 
             GroupService.getFilteredGroupsBySystemId($scope.popup.groupFilter,$scope.systemId).then(function(result) {
